@@ -52,7 +52,7 @@ resource "aws_amplify_branch" "main" {
 
 # Route 53: Get Hosted Zone for renaybrown.com
 data "aws_route53_zone" "domain_zone" {
-  name = "renaybrown.com"
+  name = "renay-brown.com"
 }
 
 # Route 53: Create a CNAME Record for Amplify
