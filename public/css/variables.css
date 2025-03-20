@@ -1,0 +1,57 @@
+:root {
+  --background: #fff;
+  --hover-background: #eee;
+  --darker-hover-background: #ddd;
+  --soft-primary-text: #777;
+  --primary-text: #666;
+  --darker-primary-text: #555;
+  --secondary-text: #444;
+  --darker-secondary-text: #333;
+  --black-text: #111;
+
+  --projects-background: #f2f2f2;
+  --projects-active: rgb(72, 197, 104);
+
+  --scrollbar-thumb: #767272a6;
+  --scrollbar-thumb-hover: #585858;
+
+  --kbm-text: #999;
+  --kbm-background: #fdfdfd;
+  --kbm-border: #eee;
+}
+
+.dark {
+  --background: #121212;
+  --hover-background: #3a3a3a;
+  --darker-hover-background: #292929;
+  --soft-primary-text: #c5c5c5;
+  --primary-text: #dadada;
+  --darker-primary-text: #c9c9c9;
+  --secondary-text: #ccc;
+  --darker-secondary-text: #ddd;
+  --black-text: #eee;
+
+  --projects-background: #1b1b1b;
+  --projects-active: rgb(
+    72,
+    197,
+    104
+  ); /* This color can remain the same if it contrasts well with the dark background */
+
+  --scrollbar-thumb: #5e5b5ba6;
+  --scrollbar-thumb-hover: #7a7a7a;
+
+  --kbm-text: #bbb;
+  --kbm-background: #181818;
+  --kbm-border: #383838;
+}
+
+.dark #hotkeypad {
+  --hotkeypad-bg-kbd: #121212;
+  --hotkeypad-bg-backdrop: #111;
+  --hotkeypad-bg-container: #111;
+  --hotkeypad-bg-item-hover: #3a3a3a;
+  --hotkeypad-border-container: #292929;
+  --hotkeypad-border-container-hover: #3a3a3a;
+  --hotkeypad-fg-muted: #eee;
+}

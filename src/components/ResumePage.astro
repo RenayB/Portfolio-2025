@@ -1,0 +1,60 @@
+---
+import Hero from '@/components/sections/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+
+import KeyboardManager from '@/components/KeyboardManager.astro';
+import Section from '@/components/Section.astro';
+import About from '@/components/sections/About.astro';
+import Certificates from '@/components/sections/Certificates.astro';
+import Education from '@/components/sections/Education.astro';
+import Experience from '@/components/sections/Experience.astro';
+import Projects from '@/components/sections/Projects.astro';
+import Skills from '@/components/sections/Skills.astro';
+import SoftSkills from '@/components/sections/SoftSkills.astro';
+
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { getEntry } from 'astro:content';
+const LANG = getLangFromUrl(Astro.url);
+const t = useTranslations(LANG);
+const entry = await getEntry('cv', LANG);
+
+const { basics } = entry.data;
+const { name, label } = basics;
+---
+
+<Layout title={`${t('title')} ${name} - ${label}`}>
+  <main class='container'>
+    <Section><Hero data={entry.data} /></Section>
+    <Section title={t('section.about')}><About data={entry.data} /></Section>
+    <Section title={t('section.experience')}
+      ><Experience data={entry.data} /></Section
+    >
+    <Section title={t('section.education')}
+      ><Education data={entry.data} /></Section
+    >
+    <Section title={t('section.projects')}
+      ><Projects data={entry.data} /></Section
+    >
+    <Section title={t('section.certifications')}
+      ><Certificates data={entry.data} /></Section
+    >
+    <Section title={t('section.skills')}><Skills data={entry.data} /></Section>
+    <Section title={t('section.softSkills')}
+      ><SoftSkills data={entry.data} /></Section
+    >
+    <KeyboardManager data={entry.data} />
+  </main>
+</Layout>
+
+<style>
+  .container {
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      padding: 3rem;
+    }
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+import type { Resume } from '@/content/config';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { data } = Astro.props;
+const { education } = data as Resume;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<ul>
+  {
+    education.map(({ startDate, endDate, institution, area }) => {
+      const startDateString = new Date(startDate).toLocaleDateString('en-US', {
+        month: 'short',
+        year: 'numeric',
+      });
+      const endDateString = endDate
+        ? new Date(endDate).toLocaleDateString('en-US', {
+            month: 'short',
+            year: 'numeric',
+          })
+        : t('currentDateString');
+      return (
+        <li>
+          <article>
+            <header>
+              <div>
+                <h3>{institution}</h3>
+              </div>
+              <time>
+                {startDateString} - {endDateString}
+              </time>
+            </header>
+            <footer>
+              {' '}
+              <p>{area}</p>
+            </footer>
+          </article>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  article h3 {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--black-text);
+  }
+
+  article h4 {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--darker-secondary-text);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  time {
+    font-size: 0.85rem;
+    color: var(--darker-primary-text);
+  }
+
+  @media (max-width: 500px) {
+    header {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+</style>

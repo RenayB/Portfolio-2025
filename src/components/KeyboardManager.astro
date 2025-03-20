@@ -1,0 +1,247 @@
+---
+import 'hotkeypad/reset.css';
+import 'hotkeypad/index.css';
+import type { Resume } from '@/content/config';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const { data } = Astro.props;
+const { basics } = data as Resume;
+const { profiles } = basics;
+
+import { ICONS } from '@/icons/KeyboardIcons';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const redirectURL = lang === 'en' ? '/es' : '/';
+
+const printInfo = {
+  id: 'print',
+  title: t('commands.print'),
+  icon: ICONS.Print,
+  hotkey: 'ctrl+P',
+  section: t('commands.section.actions'),
+};
+
+const languageInfo = {
+  id: 'language',
+  title: t('commands.language'),
+  icon: ICONS.Language,
+  url: redirectURL,
+  hotkey: 'ctrl+C',
+  section: t('commands.section.actions'),
+};
+
+const toggleThemeInfo = {
+  id: 'toggle-theme',
+  title: t('commands.toggleTheme'),
+  icon: ICONS.ToggleTheme,
+  hotkey: 'ctrl+B',
+  section: t('commands.section.actions'),
+};
+
+const socialInfo = profiles.map(({ network, url }) => {
+  const icon = ICONS[network];
+  const firstLetter = network.charAt(0).toUpperCase();
+  return {
+    id: network,
+    title: network,
+    url,
+    icon,
+    hotkey: `ctrl+${firstLetter}`,
+    section: 'Social',
+  };
+});
+
+const dataInfo = [printInfo, languageInfo, toggleThemeInfo, ...socialInfo];
+---
+
+<footer class='no-print commands'>
+  <span class='desktop'
+    >{t('commands.footer.press')}
+    <kbd>Cmd / Ctrl</kbd> + <kbd>K</kbd>
+    {t('commands.footer.open')}</span
+  >
+  <span class='mobile' title={t('commands.footer.mobile')}>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='25'
+      height='25'
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke-width='1.5'
+      stroke='currentColor'>
+      <path
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        d='m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z'
+      ></path>
+    </svg>
+  </span>
+</footer>
+
+<div
+  id='hotkeypad'
+  data-info={JSON.stringify(dataInfo)}
+  data-placeholder={t('commands.placeholder')}>
+</div>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+  import HotKeyPad from 'hotkeypad';
+  document.addEventListener('astro:page-load', () => {
+    interface Info {
+      id: string;
+      title: string;
+      url?: string;
+      icon: string;
+      hotkey: string;
+      section: string;
+      handler?: () => void;
+    }
+
+    const hotkeypad = new HotKeyPad();
+    const footer = document.querySelector('.commands');
+
+    footer?.addEventListener('click', () => {
+      var event = new KeyboardEvent('keydown', {
+        key: 'k',
+        code: 'KeyK',
+        keyCode: 75,
+        which: 75,
+        ctrlKey: true,
+        altKey: false,
+        shiftKey: false,
+        metaKey: false,
+      });
+
+      document.dispatchEvent(event);
+    });
+
+    const info = hotkeypad.instance.getAttribute('data-info') ?? '[]';
+    const parsedInfo: Info[] = JSON.parse(info) as Info[];
+
+    const openUrl = (
+      url: string | undefined,
+      urlOptions: '_self' | '_blank'
+    ) => {
+      if (!url) return;
+      if (urlOptions === '_self') {
+        navigate(url);
+        return;
+      }
+      window.open(url, urlOptions);
+    };
+
+    const data = parsedInfo.map(({ url, title, icon, hotkey, section, id }) => {
+      const basics = { id, title, icon, hotkey, section };
+      const urlOptions = id === 'language' ? '_self' : '_blank';
+      if (id === 'toggle-theme') {
+        return {
+          ...basics,
+          handler: () => {
+            const element = document.documentElement;
+            element.classList.toggle('dark');
+            const isDark = element.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          },
+        };
+      }
+      if (id === 'print') {
+        return {
+          ...basics,
+          handler: () => {
+            const element = document.documentElement;
+            element.classList.remove('dark');
+            window.scrollTo(0, 0);
+            window.print();
+          },
+        };
+      }
+      return {
+        ...basics,
+        handler: () => openUrl(url, urlOptions),
+      };
+    });
+
+    hotkeypad.setCommands(data);
+  });
+</script>
+
+<style>
+  @media print {
+    ninja-keys {
+      display: none !important;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    footer .desktop {
+      display: none;
+    }
+
+    footer .mobile {
+      color: var(--kbm-text);
+      position: fixed;
+      bottom: 15px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 100%;
+      background: var(--kbm-background);
+      border: 1px solid var((--kbm-border));
+      right: 15px;
+      padding: 5px;
+    }
+  }
+
+  .desktop {
+    display: block;
+    color: var(--black-text);
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  footer:hover {
+    cursor: pointer;
+  }
+
+  footer .desktop {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--kbm-background);
+    border-top: 1px solid var(--kbm-border);
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding-block: 8px;
+    text-align: center;
+    view-timeline-name: --revealing;
+    view-timeline-axis: block;
+
+    animation: linear 0.3s fadeIn;
+    animation-timeline: --revealing;
+    animation-range: entry 100% cover 10%;
+  }
+
+  footer .desktop kbd {
+    background: var(--kbm-border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 14px;
+  }
+</style>

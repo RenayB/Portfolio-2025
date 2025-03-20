@@ -1,0 +1,23 @@
+{
+  "name": "minimalist-resume-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/sitemap": "^3.1.6",
+    "@fontsource-variable/inter": "^5.0.18",
+    "@fontsource-variable/jetbrains-mono": "^5.0.21",
+    "astro": "^4.10.3",
+    "astro-robots-txt": "^1.0.0",
+    "hotkeypad": "^0.1.1",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@8.15.8+sha512.d1a029e1a447ad90bc96cd58b0fad486d2993d531856396f7babf2d83eb1823bb83c5a3d0fc18f675b2d10321d49eb161fece36fe8134aa5823ecd215feed392"
+}

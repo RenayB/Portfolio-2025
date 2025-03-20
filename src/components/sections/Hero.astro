@@ -1,0 +1,219 @@
+---
+const { data } = Astro.props;
+const { basics } = data as Resume;
+const { name, email, phone, image, label, location, profiles } = basics;
+const { city, region } = location;
+
+import type { Resume } from '@/content/config';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import GitHub from '@icons/GitHub.astro';
+import LinkedIn from '@icons/LinkedIn.astro';
+import Mail from '@icons/Mail.astro';
+import Phone from '@icons/Phone.astro';
+import WorldMap from '@icons/WorldMap.astro';
+import Language from '@icons/Language.astro';
+import X from '@icons/X.astro';
+import ToggleTheme from '../ToggleTheme.astro';
+
+const SOCIAL_ICONS: Record<string, any> = {
+  GitHub,
+  LinkedIn,
+  X,
+};
+
+const linkedInfo = profiles.find(({ network }) => network === 'LinkedIn');
+const githubInfo = profiles.find(({ network }) => network === 'GitHub');
+
+const printInfo = [email, phone, linkedInfo?.url, githubInfo?.url]
+  .filter(Boolean)
+  .join(' ● ');
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const redirectURL = lang === 'en' ? '/es' : '/';
+---
+
+<div class='container'>
+  <div class='info'>
+    <h1>{name}</h1>
+    <h2>{label}</h2>
+    <span>
+      <WorldMap />
+      {city}, {region}
+    </span>
+    <footer class='print'>
+      {printInfo}
+      <span id='web-url'></span>
+    </footer>
+    <footer class='no-print'>
+      {
+        email && (
+          <a
+            href={`mailto:${email}`}
+            title={`${t('hero.sendEmail')} ${name} ${t('hero.emailFollowing')} ${email}`}
+            target='_blank'
+            rel='noopener noreferrer'>
+            <Mail />
+          </a>
+        )
+      }
+      {
+        phone && (
+          <a
+            href={`tel:${phone}`}
+            title={`${t('hero.phone')} ${name} ${t('hero.phoneFollowing')} ${phone}`}
+            target='_blank'
+            rel='noopener noreferrer'>
+            <Phone />
+          </a>
+        )
+      }
+      {
+        profiles.map(({ network, url }) => {
+          const Icon = SOCIAL_ICONS[network];
+          return (
+            <a
+              href={url}
+              title={`${t('hero.social')} ${network} ${t('hero.socialFollowing')} ${url}`}
+              target='_blank'
+              rel='noopener noreferrer'>
+              <Icon />
+            </a>
+          );
+        })
+      }
+      <a href={redirectURL} title={t('changeLanguage')}>
+        <Language />
+      </a>
+      <ToggleTheme />
+    </footer>
+  </div>
+  <figure>
+    <img src={image} alt={name} />
+  </figure>
+</div>
+
+<script>
+  import { getLangFromUrl } from '@/i18n/utils';
+
+  document.addEventListener('astro:page-load', () => {
+    const webUrl = document.getElementById('web-url');
+    const lang = getLangFromUrl(new URL(window.location.href));
+    const websiteMsg = {
+      en: 'See the web version at:',
+      es: 'Ver la versión web en:',
+    };
+
+    if (webUrl) {
+      webUrl.innerText = `${websiteMsg[lang]} ${window.location.href}`;
+    }
+  });
+</script>
+
+<style>
+  #web-url {
+    margin-top: 8px;
+    color: var(--darker-primary-text);
+    font-size: 0.7rem;
+    text-wrap: pretty;
+  }
+
+  .container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  figure {
+    min-width: 110px;
+  }
+
+  h1 {
+    color: var(--black-text);
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  h2 {
+    color: var(--secondary-text);
+    font-weight: 500;
+    font-size: 1rem;
+    text-wrap: balance;
+    font-family:
+      'JetBrains Mono Variable',
+      Menlo,
+      Monaco,
+      Lucida Console,
+      'Courier New',
+      Courier,
+      monospace;
+  }
+
+  img {
+    aspect-ratio: 1/ 1;
+    object-fit: cover;
+    width: 110px;
+    border-radius: 16px;
+    filter: grayscale(0.8) brightness(0.9) contrast(1.1) saturate(1.1);
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--primary-text);
+  }
+
+  footer {
+    color: var(--darker-primary-text);
+    font-size: 0.7rem;
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+    text-wrap: pretty;
+  }
+
+  footer a {
+    color: var(--soft-primary-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--hover-background);
+    padding: 4px;
+    height: 32px;
+    width: 32px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  footer a:hover {
+    background-color: var(--hover-background);
+    border: 1px solid var(--darker-hover-background);
+  }
+
+  @media (max-width: 500px) {
+    .container {
+      flex-direction: column-reverse;
+      text-align: center;
+    }
+
+    .info {
+      align-items: center;
+    }
+
+    img {
+      width: 90px;
+    }
+
+    footer {
+      text-wrap: balance;
+    }
+  }
+</style>
