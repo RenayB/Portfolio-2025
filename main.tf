@@ -20,7 +20,7 @@ resource "aws_iam_role" "amplify_role" {
 # AWS Amplify App
 resource "aws_amplify_app" "astro_app" {
   name       = "AstroApp"
-  repository = "https://github.com/YOUR_GITHUB_USERNAME/YOUR_ASTRO_REPO"  # Update with your repo
+  repository = "https://github.com/RenayB/Portfolio-2025"  
   oauth_token = "ghp_YOUR_GITHUB_ACCESS_TOKEN" # Replace with a valid GitHub token
 
   build_spec = <<EOT
@@ -50,7 +50,7 @@ resource "aws_amplify_branch" "main" {
   enable_auto_build = true
 }
 
-# Route 53: Get Hosted Zone for renaybrown.com
+# Route 53: Get Hosted Zone for renay-brown.com
 data "aws_route53_zone" "domain_zone" {
   name = "renay-brown.com"
 }
@@ -58,7 +58,7 @@ data "aws_route53_zone" "domain_zone" {
 # Route 53: Create a CNAME Record for Amplify
 resource "aws_route53_record" "amplify_record" {
   zone_id = data.aws_route53_zone.domain_zone.zone_id
-  name    = "www.renaybrown.com"
+  name    = "www.renay-brown.com"
   type    = "CNAME"
   ttl     = 300
   records = [aws_amplify_app.astro_app.default_domain]
@@ -67,7 +67,7 @@ resource "aws_route53_record" "amplify_record" {
 # Route 53: Redirect Root Domain to WWW (Using Alias)
 resource "aws_route53_record" "root_redirect" {
   zone_id = data.aws_route53_zone.domain_zone.zone_id
-  name    = "renaybrown.com"
+  name    = "renay-brown.com"
   type    = "A"
   alias {
     name                   = aws_amplify_app.astro_app.default_domain
