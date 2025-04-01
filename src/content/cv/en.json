@@ -1,20 +1,17 @@
 {
   "basics": {
     "name": "Renay Brown",
-    "label": "DevOps & Cloud Engineer specializing in building scalable, resilient cloud infrastructure and automating deployment pipelines. Passionate about optimizing system performance, enhancing security, and streamlining CI/CD workflows to drive efficiency. Experienced in Kubernetes, cloud platforms like Azure and AWS, infrastructure-as-code, and monitoring solutions to ensure high availability and reliability. Committed to enabling seamless development and operational processes through automation and best practices.",
+    "label": "DevOps & Cloud Engineer",
     "image": "/me.webp",
     "email": "renaylb@gmail.com",
     "phone": "2817801899",
     "url": "https://renaybrown.net",
     "summary": [
       {
-        "paragraph": "I'm a cloud DevOps and Kubernetes engineer striving to make a mark in the cloud computing world. With experience in startup environments, I've streamlined deployments, optimized cloud infrastructure, and enhanced system reliability. My proactive problem-solving skills ensure scalable architectures, efficient automation, and seamless CI/CD workflows, delivering high-performance and resilient cloud solutions."
+        "paragraph": "Welcome, my name is Renay Brown, and I am a problem solver experienced with CI/CD pipelines, cloud infrastructure, and Kubernetes deployments. I specialize in automating deployments, optimizing cloud resources, and ensuring high availability for scalable applications. With a passion for innovation, I continuously seek out new technologies and industry best practices ."
       },
       {
-        "paragraph": "Fueled by my passion for automation and cloud efficiency, I design custom DevOps tools to optimize workflows, often solving challenges I encounter firsthand. I share my journey and insights on my personal blog, blending my expertise in cloud engineering, Kubernetes, and infrastructure as code with my commitment to continuous improvement."
-      },
-      {
-        "paragraph": "My goal is to simplify and enhance people's lives through digital innovation, cultivating and expanding the INGCapaDev brand, and creating a lasting impact on the web development community."
+        "paragraph": "My goal in developing this site was to share my accomplishments and side projects I have been working on. I also hope to connect with like-minded professionals and showcase my expertise in cloud engineering and automation."
       }
     ],
     "location": {
@@ -37,11 +34,11 @@
   "work": [
     {
       "name": "Booz Allen",
-      "position": "Lead Devops Engineer",
+      "position": "Lead Devops / Platform Engineer",
       "startDate": "2024-09-01",
       "endDate": null,
-      "summary": "At Booz Allen, I deployed, managed, and optimized CI/CD pipelines and Kubernetes-based infrastructure to support a zero-trust endpoint security platform. I integrated RabbitMQ to enable real-time streaming of user data and deployed PostgreSQL databases for secure and efficient data storage. I also automated deployments using Helm, Ansible, and GitLab CI, reducing manual effort and improving deployment speed. To enhance data availability, I implemented MinIO for replication, and I used Podman and Docker to develop and secure microservices. Additionally, I troubleshot network configurations using TCP/IP, monitored system performance with Grafana, and maintained highly available K3s clusters to ensure 99.9% uptime.",
-      "highlights": [""],
+      "summary": "At Booz Allen, I served as an engineer for multiple cybersecurity and compliance management 3-tier web applications. One application I managed ran on a Kubernetes cluster (RKE2 and Azure Kubernetes Service), while the other operated on  Windows Server hosted on AWS infrastructure. My responsibilities included modifying and debugging Kubernetes clusters, updating and troubleshooting C# and JavaScript application pipelines, and automating tasks using Bash, PowerShell, Python, and Ansible.",
+      "highlights": ["Rancher","Longhorn","Azure Kubernetes Service","RabbitMQ","Helm","FluxCD","Containerization","Postgres Database","Windows Server","Windows Database Manager"],
       "isRemote": true
     },
     {
@@ -49,8 +46,8 @@
       "position": "Senior Software Engineer",
       "startDate": "2018-06-01",
       "endDate": "2024-08-15",
-      "summary": "I designed and implemented CI/CD pipelines and infrastructure for enterprise virtual flight software running on Azure Kubernetes Service (AKS). To ensure high availability, I configured multiple node pools, enabled availability zones, and leveraged auto-scaling for resilience and scalability. I introduced GitOps practices with FluxCD, automating deployments and maintaining consistency across cluster environments. Using Python, Java, and C++, I enhanced business logic within the application to meet evolving requirements. Additionally, I developed GitLab pipeline stages in YAML, implemented code coverage tools like gcov and OpenCodeCoverage, and managed various Azure resources, including Virtual Desktops and pipeline runners. I optimized cloud spending by enforcing Azure policies, reducing yearly infrastructure costs by $20K. I also built Grafana dashboards to monitor pipelines, improving issue detection by 25%, and designed Azure Workbooks to track resource usage, cutting monthly expenses by $10K. Beyond cloud infrastructure, I assisted AI engineers in training image identification models and served as a part-time Scrum Master, facilitating agile ceremonies and improving communication across teams.",
-      "highlights": [""],
+      "summary": "At Lockheed Martin, I played a key role in migrating avionic applications running on Hyper-V and windows servers to the cloud. My major contributions included containerizing applications, automating cloud infrastructure deployment using Terraform, and modifying CI/CD pipelines to support deployments to both cloud environments and on-site servers. Additionally, I served as a Linux administrator, managing database server configurations, ensuring security and compliance requirements were met, and automating patches usinng Ansible. I also served as a cloud administrator by setting up monitoring tools to optimize resource costs and ensuring that developers' virtual desktop images  were available and equipped with the necessary libraries and tools for development.",
+      "highlights": ["Azure Kubernetes Service","FluxCD","Azure / Linux Admin","Python","Grafana","Containerization","Postgres"],
       "isRemote": false
     }
   ],
@@ -78,7 +75,7 @@
     {
       "name": "CompTIA Security+",
       "date": "2024-07-02",
-      "organization": "AWS",
+      "organization": "CompTIA",
       "url": "https://www.credly.com/earner/earned/badge/a042baac-70da-4e55-b332-a11f97489e8f"
     },
     {
@@ -154,44 +151,16 @@
   ],
   "projects": [
     {
-      "name": "Aura Series API",
+      "name": "Personal Website",
       "isActive": true,
-      "description": "API for Aura Series, a social media platform for sharing and discovering new series, with search and recommendation features.",
+      "description": "A website I created to host my work experience , projects , and skills. The primary goal in this mini project was to expand my knowledege in AWS and automattion by kicking off this deployment using Terraform. ",
       "highlights": [
-        "Massive user base",
-        "NestJS & Neo4J",
-        "Mailing",
-        "Authentication"
+        "TypeScript",
+        "Astro",
+        "AWS Amplify",
+        "AWS Route53"
       ],
-      "url": "https://www.auraseries.com/"
-    },
-    {
-      "name": "Personal Blog",
-      "isActive": true,
-      "description": "My personal blog where I share my experiences and knowledge about web development, productivity and other interesting topics.",
-      "highlights": [
-        "Multilanguage",
-        "SEO optimized",
-        "100/100 Lighthouse score",
-        "PWA Ready",
-        "Astro"
-      ],
-      "url": "https://blog.ingcapadev.com/",
-      "github": "https://github.com/INGCapaDev/my-blog"
-    },
-    {
-      "name": "JB Baseball Game",
-      "isActive": true,
-      "description": "A baseball game simulator, which allow you to mark all the plays available in a baseball game and save a record of the players' plays.",
-      "highlights": [
-        "Fullscreen oriented",
-        "Sound effects",
-        "Complex state management",
-        "React",
-        "Redux Toolkit"
-      ],
-      "url": "https://baseball-game-react.vercel.app/",
-      "github": "https://github.com/INGCapaDev/baseball-game-react"
+      "url": "https://www.renay-brown.com/"
     }
   ]
 }

@@ -10,7 +10,7 @@ const t = useTranslations(lang)
 
 <ul>
   {
-    work.map(({ name, startDate, endDate, position, summary, isRemote }) => {
+    work.map(({ name, startDate, endDate, position, summary, highlights, isRemote }) => {
       const startDateString = new Date(startDate).toLocaleDateString('en-US', {
         month: 'short',
         year: 'numeric',
@@ -39,6 +39,9 @@ const t = useTranslations(lang)
             <footer>
               {' '}
               <p>{summary}</p>
+              {highlights.map((highlight) => (
+              <span>{highlight}</span>
+            ))}
             </footer>
           </article>
         </li>
@@ -96,6 +99,14 @@ const t = useTranslations(lang)
   time {
     font-size: 0.85rem;
     color: var(--darker-primary-text);
+  }
+  footer span {
+    border-radius: 6px;
+    background: var(--hover-background);
+    color: var(--secondary-text);
+    font-size: 0.6rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
   }
 
 @media (max-width: 500px) {
